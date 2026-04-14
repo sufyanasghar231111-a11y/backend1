@@ -5,10 +5,10 @@ app.use(express.json())
 
 app.post('/notes',(req,res)=>{
     notes.push(req.body)
+    
     res.status(201).json({
         message:'post message successful'
-    })
-    
+    })  
 })
 
 app.get('/notes',(req,res)=>{
@@ -16,6 +16,7 @@ app.get('/notes',(req,res)=>{
         message:'get message Successful',
         notes:notes
     })
+
 })
 
 app.delete('/notes/:index',(req,res)=>{
@@ -25,6 +26,18 @@ app.delete('/notes/:index',(req,res)=>{
         message:'delete Successful'
     })
 
+})
+
+app.patch('/notes/:index',(req,res)=>{
+
+    let index=req.params.index
+    let title=req.body.title;
+    let description=req.body.description;
+    notes[index].title=title
+    notes[index].description=description
+    res.status(200).json({
+        message:'update Successful'
+    })
 })
 
 module.exports=app
